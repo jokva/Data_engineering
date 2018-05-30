@@ -11,9 +11,15 @@ import io
 
 def read_file_contents(lasfile):
     """Read all lines from the given las file"""
-    with open(lasfile, 'r', encoding='latin-1') as f:
-        file_contents = f.readlines()
-    return file_contents
+    try:
+        # on python3, valid LAS3 files can break on utf8 errors, so 'force'
+        # simple ASCII encoding (latin-1), and fall back to unspecified if this fails.
+        # encoding= raises a TypeError on python2
+        with open(lasfile, 'r', encoding='latin-1') as f:
+            return f.readlines()
+    except TypeError:
+        with open(lasfile, 'r') as f:
+            return f.readlines()
 
 
 def remove_comments_blanklines(file_contents):
