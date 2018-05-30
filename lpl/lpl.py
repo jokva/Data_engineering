@@ -1,4 +1,5 @@
 import pandas as pd
+
 import json
 import las
 import os
@@ -10,7 +11,7 @@ import io
 
 def read_file_contents(lasfile):
     """Read all lines from the given las file"""
-    with open(lasfile, 'r') as f:
+    with open(lasfile, 'r', encoding='latin-1') as f:
         file_contents = f.readlines()
     return file_contents
 
